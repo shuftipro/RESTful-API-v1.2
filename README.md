@@ -91,6 +91,11 @@ You can make a request at the following endpoint with all the parameters defined
 | video | Optional | Required | The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video). (max size 8MB) |
 | email | Optional | Optional | The customer email. This parameter is to use if the verification result is pending or late then upon verification process completion; an email will be send to customer to notify his/her verification status. The verification result will be send to customer only if you provide the email. |
 | lang | Optional | Optional | Send ISO639-1 language code of your preferred language to display the verification screens accordingly. Please see the supported languages in this section. If this parameter is not sent then by default English as language will be displayed. |
+| document_image_2 | Optional | Optional | The base64 string of the customer’s document image. Use this parameter if the all required information to verify a person is not present on same document. e.g Some of the ID Cards have name on one side & dob on back side. So the image of the back side of the document will be sent as base64 string in this parameter. |
+| address | Optional | Optional | A valid string of the customer's address which may include only the comma(,) , underscore(\_) and dash(-) sign in the address. If you are providing the address then please provide any utility bill or any other document which contains your address. To send the utility or other document of address please use the parameter document_address_image. |
+| document_address_image | Optional | Optional | The base64 string of the customer`s utility bill or any document which must contain the residence address. The maximum size for an image is 4MB.  |
+| document_id_no | Optional | Optional | The valid ID number of your document which may be your passport no, ID card no, driving licence ID, etc. If the ID no. of document is required to verify, then send the document ID in this parameter. |
+| document_expiry_date | Optional | Optional | The expiry date  of customer`s document. Example: 1980-01-31 |
 
 # Card Present Verification
 Card present verification is used to verify whether your customer owns the debit/credit card. Your customer needs to display their credit/debit card. Shufti Pro will confirm the first 6-digits and the last 4-digits of the credit/debit card which will be on display.
@@ -193,11 +198,11 @@ SHA256 (“1990-12-25AlexJohnTrump”) = ea617383129f67037f369d2bc66c7e44a3690dd
 Please note here, parameters are sorted ascendingly by their keys  as  **d**ob, **f**irst_name and **l**ast_name and then Secret Key at the end.
 
 # Sample Codes
-Below are the sample codes in php & python for the following verification methods <br>
-1.  Online Identity verification
-2.  Online Card Present verification
-3.  Offline Identity verification
-4.  Offline Card Present verification
+Below are the sample codes in php, python & c# for the following verification methods <br>
+1.  [Online Identity verification](https://github.com/shuftipro/integration-guide/tree/master/Sample%20codes/Online%20Identity%20Verification)
+2.  [Online Card Present verification](https://github.com/shuftipro/integration-guide/tree/master/Sample%20codes/Online%20Card%20Present%20Verification)
+3.  [Offline Identity verification](https://github.com/shuftipro/integration-guide/tree/master/Sample%20codes/Offline%20Identity%20Verification)
+4.  [Offline Card Present verification](https://github.com/shuftipro/integration-guide/tree/master/Sample%20codes/Offline%20Card%20Present%20Verification)
 
 # Supported Languages
 | Language | Code |
@@ -206,6 +211,27 @@ Below are the sample codes in php & python for the following verification method
 | English | en |
 | Estonian | et |
 | Russian | ru |
+| Arabic     | ar |
+| English    | en |
+| Estonian   | et |
+| Russian    | ru |
+| Italian    | it |
+| Turkish    | tr |
+| Swedish    | sv |
+| Spanish    | es |
+| Romanian   | ro |
+| Portuguese | pt |
+| Korean     | ko |
+| Polish     | pl |
+| Norwegian  | no |
+| Japanese   | ja |
+| Icelandic  | is |
+| French     | fr |
+| German     | de |
+| Dutch      | nl |
+| Danish     | da |
+| Indonesian | in |
+| Chinese    | zh |
 
 # Test IDs
 Shufti Pro provides the users with a number of test documents. Customers may use these to test the demo, instead of presenting their actual information. <br><br>
@@ -230,6 +256,8 @@ Verification Result: “Not Verified” - Reason: Incorrect information detected
 | March 14, 2018 | 1.0.1 | Added new endpoint for get request status. https://api.shuftipro.com/status |
 | March 26, 2018 | 1.0.1 | Added lang parameter & supported languages list |
 | March 29, 2018 | 1.0.1 | Added C# sample codes |
+| April 10, 2018 | 1.0.1 | Added new supported languages |
+
 
 
 2016-18 © Shufti Pro Ltd.
