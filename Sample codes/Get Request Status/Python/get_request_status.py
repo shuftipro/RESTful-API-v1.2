@@ -1,7 +1,9 @@
-import hashlib import requests import  json
+import hashlib 
+import requests 
+import  json
 import collections
 
-url = 'https://api.shuftipro.com/status
+url = 'https://api.shuftipro.com/status'
 CLIENT_ID = 'Your client id provided by Shuftipro'
 SECRET_KEY = 'YOUR_SECRET_KEY'
 
