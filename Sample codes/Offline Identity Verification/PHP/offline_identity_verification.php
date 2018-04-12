@@ -27,16 +27,16 @@ $verification_data = json_encode($verification_data);
 
 
 $post_data = array(
-	"client_id"            => $client_id,
-	"reference"            => "Your unique request reference",
-	"email"                => "customer email",
-	"phone_number"         => "+440000000000",
-	"country"              => "Pakistan",
-	"lang"				   => "2 digits code of supported languages for intarface language"
-	"callback_url"         => "A valid callback url e.g https://www.yourdomain.com", 
-	"redirect_url"         => "A valid callback url e.g https://www.yourdomain.com",
+	"client_id"             => $client_id,
+	"reference"             => "Your unique request reference",
+	"email"                 => "customer email",
+	"phone_number"          => "+440000000000",
+	"country"               => "Pakistan",
+	"lang"                  => "2 digits code of supported languages for intarface language"
+	"callback_url"          => "A valid callback url e.g https://www.yourdomain.com", 
+	"redirect_url"          => "A valid callback url e.g https://www.yourdomain.com",
 	"verification_services" => $verification_services, 
-	"verification_data"    => $verification_data,
+	"verification_data"     => $verification_data,
 );
 
 ksort($post_data);//Sort the all request parameter.
@@ -46,7 +46,10 @@ $signature              = hash("sha256", $raw_data);
 $post_data["signature"] = $signature;
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url); curl_setopt($ch, CURLOPT_POST, 1); curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data); curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_POST, 1); 
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 curl_close($ch);
 ?>

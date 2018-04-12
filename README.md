@@ -84,6 +84,7 @@ You can make a request at the following endpoint with all the parameters defined
 | verification_data | Optional  | Required | The JSON encoded array of all the data required in offline verification. The following keys are allowed to send in the request <br> **face_image**:The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images) <br>**document_front_image**:The base 64 string of the              document mentioned  in “document_type” parameter (passport, driving_license, id_card) <br>**document_back_image**: The base64 string of the customer’s document back side image.(if present) <br>**document_address_image**:The base64 string of the customer's utility bill or any document which must contain the residence address  <br>**video**: The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video) |
 | signature | Required | Required | SHA256 hash of all the request parameters in sorted order. The details are in the signature calculation section. |
 
+
 #  Get Request status
 To get the request status later after verification you may use this endpoint. To get the request status you are required to send the client_id, reference and signature in POST request. The reference is your unique request **reference** which you send at the time of request. Calculate the signature as described in signature calculation section. If all the validation passed and your request is found in our record then you will get back the verification status of request which is associated with the reference you are providing. <br>
 
@@ -135,6 +136,7 @@ Status codes represent the status of the verification process (Success / Failure
 | SP27 | Request is already processed | Yes | Yes |
 | SP29 | Invalid size. The size limit for ["parameter_name"] is ["size in MBs"] | Yes | Yes |
 | SP32 | Invalid request reference. Request not found | Yes | Yes |
+| SP35 | [parameter_name] not allowed with [method_name] verification method | Yes | Yes |
 
 # Signature Calculation
 The request and response signature can be calculated as following: 
