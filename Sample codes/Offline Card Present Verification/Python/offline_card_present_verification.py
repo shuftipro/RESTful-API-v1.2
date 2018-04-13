@@ -1,22 +1,48 @@
 #!/usr/bin/python import hashlib import requests import  json
+import hashlib 
+import requests 
+import json
 import collections
+from decimal import Decimal
 
-url = 'https://api.shuftipro.com/
-CLIENT_ID = 'Your client id provided by Shuftipro' SECRET_KEY = 'YOUR_SECRET_KEY'
+url = 'https://api.shuftipro.com/'
+CLIENT_ID = 'Your client id provided by Shuftipro' 
+SECRET_KEY = 'YOUR_SECRET_KEY'
+
+
+verification_services ={}
+verification_services["document_type"]        = "passport OR id_card OR driving_license OR null"
+verification_services["document_id_no"]       = "123-ABC-001"
+verification_services["document_expiry_date"] = "2025-01-01"
+verification_services["address"]              = "your address"
+verification_services["card_first_6_digits"]  = "123456"
+verification_services["card_last_4_digits"]   = "7890"
+verification_services["background_checks"]    = "0"
+
+#json encode vericiation services
+json_verification_services = json.dumps(verification_services, ensure_ascii=False)
+
+verification_data ={}
+verification_data["face_image"]             = "base64 of your face image (only required if you want to verify through still images (maximum size is 4mb)) must provide the next parameter i.e document_image"
+verification_data["document_front_image"]   = "base64 of your document front image (maximum size is 4mb)"
+verification_data["document_back_image"]    = "base64 of your document back image (maximum size is 4mb)"
+verification_data["document_address_image"] = "base64 of your document address image (maximum size is 4mb)"
+verification_data["video"]                  = "base64 string of video, if you want to verify through offline video verification (maximum size is 8mb)"
+
+#json encode vericiation data
+json_verification_data = json.dumps(verification_data, ensure_ascii=False)
 
 post_data = {
-"method"              : "id_card OR passport OR driving_license",
-"client_id"           : CLIENT_ID, "card_first_6_digits" : "123456", "card_last_4_digits"  : "7890",
-"reference"           : "Your unique request reference", "country"             : "Pakistan",
-"phone_number"        : "+440000000000",
-"redirect_url"        : "A valid callback url e.g https://www.yourdomain.com", "face_image"          : "base64 of your face image (only required if you want to verify
-	through still images (maximum size is 4mb))must provide the next 
-parameter i.e document_image",
-"document_image"      : "base64 of your document (id_card, passport, driving_license) 
-(maximum size is 4mb)",
-"video"               : "base64 of video, if you want to verify through offline video
-verification" (maximum size is 8mb)
-
+"client_id"             : CLIENT_ID,
+"reference"             : "Your unique request reference",
+"email"                 : "customer email",
+"phone_number"          : "+440000000000",
+"country"               : "Pakistan",
+"lang"                  : "2 digits code of supported languages for intarface language"
+"callback_url"          : "A valid callback url e.g https://www.yourdomain.com", 
+"redirect_url"          : "A valid callback url e.g https://www.yourdomain.com",
+"verification_services" : json_verification_services 
+"verification_data"     : json_verification_data  
 }
 
 

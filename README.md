@@ -7,10 +7,8 @@
   * [General Purpose](#general-purpose)
   * [Driving License](#driving-license)
   * [Passport](#passport)
-  * [Passport](#passport)
   * [ID Card](#id-card)
   * [RESTful Request](#restful-request)
-* [Card Present Verification](#card-present-verification)
 * [Get Request status](#get-request-status)
 * [Responses](#responses)
 * [Status Codes](#status-codes)
@@ -75,51 +73,17 @@ You can make a request at the following endpoint with all the parameters defined
 
 | Parameter | Online | Offline | Description |
 | ------ | ------ | ------ | ------ |
-| method | Optional | Required | Which type of verification would you like for your   customers? <br> Possible   values: <br> <ul><li> passport </li><li> driving_license </li><li> id_card</li></ul> In real time verification if an empty value is provided then the end user will have an option to choose any of the verification method from the list given. |
 | client_id | Required | Required | Client’s ID  provided by Shufti Pro to you. |
 | reference | Required | Required | Your  Unique reference ID, which we will send you back with each response , so you can verify the request. Only alfa and num values are allowed. |
-| first_name | Required | Required | Customer’s First Name. The maximum length of the string is 32 characters and minimum required length  is 2 characters |
-| last_name | Required | Required | Customer’s Last Name. The maximum length of the string is 32 characters and minimum required length  is  2 characters. |
-| country | Required | Required | Full Country name or [ISO2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) Code. Example: United Kingdom or GB. |
-| dob | Required | Required | Customer’s date of birth (YYYY-MM-DD). Example: 1980-01-31 |
+| email | Optional | Optional | The customer email. This parameter is to use if the verification result is pending or late then upon verification process completion; an email will be send to customer to notify his/her verification status. The verification result will be send to customer only if you provide the email. |
 | phone_number | Required | Required | Customer’s phone number with country code. Example: +440000000000 |
+| lang | Optional | Optional | Send ISO639-1 language code of your preferred language to display the verification screens accordingly. Please see the supported languages in this section. If this parameter is not sent then by default English as language will be displayed. |
 | callback_url | Required | Optional | Upon every request, we make a server to server call, it includes all the response values, so you   can  update status on your end even if the customer is lost in the midway through the process. Please verify the response’s signature value  with your own calculated signature value.<br> **Remember:** It is not required if the user provides face_image, document_image or video. |
-| redirect_url | Required | Required | Once the verification process is completed, we will redirect the customer  back  to your  given  URL.  In this  redirect request, you’ll also get all the response   values   in HTTP POST, so you can make your decision.Please verify the response’s signature value with your own calculated signature value. |
+| redirect_url | Required | Required | Once the verification process is completed, we will redirect the customer  back  to your  given  URL.  In this  redirect request, you’ll also get all the response   values   in HTTP POST, so you can make your decision. Please verify the response’s signature value with your own calculated signature value. |
+| verifcation_services | Required | Required | The JSON encoded array of all data which is required to verify. The all data to verify will be send in this parameter. The key will be name of service which you want to verify e.g dob, first_name etc. The following keys are allowed to send in the array <br> **document_type**: Which type of verification would you like for your   customers? <br> Possible   values: <br> <ul><li> passport </li><li> driving_license </li><li> id_card</li></ul> In real time verification if an empty value is provided then the end user will have an option to choose any of the verification method from the list given. <br>**document_id_no**: The valid ID number of your document.  <br>**document_expiry_date**:  The expiry date  of customer's document. Example: 1980-01-31 <br>**address**: customer's address **first_name**: Customer’s First Name.  <br>**last_name**: Customer’s Last Name. <br>**dob**:Customer’s date of birth (YYYY-MM-DD). Example: 1980-01-31  <br>**card_first_6_digits**:First 6 digits of the customer’s credit/debit card number if document type is debit/credit <br>**card_last_4_digits**:Last 4 digits of the customer’s credit/debit card number if document type is debit/credit <br>**background_checks**: Send 1 or 0 (Boolean) value. If you want to check the background details of the customer send this key with value 1 |
+| verification_data | Optional  | Required | The JSON encoded array of all the data required in offline verification. The following keys are allowed to send in the request <br> **face_image**:The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images) <br>**document_front_image**:The base 64 string of the              document mentioned  in “document_type” parameter (passport, driving_license, id_card) <br>**document_back_image**: The base64 string of the customer’s document back side image.(if present) <br>**document_address_image**:The base64 string of the customer's utility bill or any document which must contain the residence address  <br>**video**: The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video) |
 | signature | Required | Required | SHA256 hash of all the request parameters in sorted order. The details are in the signature calculation section. |
-| face_image | Optional | Required | The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images). In this case , user must provide the next parameter i.e document_image. (max size 4MB) |
-| document_image | Optional | Required | The base 64 string of the              document mentioned  in “method” parameter (passport, driving_license, id_card). This parameter is used for offline verification (still image verification). (max size 4MB) |
-| video | Optional | Required | The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video). (max size 8MB) |
-| email | Optional | Optional | The customer email. This parameter is to use if the verification result is pending or late then upon verification process completion; an email will be send to customer to notify his/her verification status. The verification result will be send to customer only if you provide the email. |
-| lang | Optional | Optional | Send ISO639-1 language code of your preferred language to display the verification screens accordingly. Please see the supported languages in this section. If this parameter is not sent then by default English as language will be displayed. |
-| document_image_2 | Optional | Optional | The base64 string of the customer’s document image. Use this parameter if the all required information to verify a person is not present on same document. e.g Some of the ID Cards have name on one side & dob on back side. So the image of the back side of the document will be sent as base64 string in this parameter. |
-| address | Optional | Optional | A valid string of the customer's address which may include only the comma(,) , underscore(\_) and dash(-) sign in the address. If you are providing the address then please provide any utility bill or any other document which contains your address. To send the utility or other document of address please use the parameter document_address_image. |
-| document_address_image | Optional | Optional | The base64 string of the customer`s utility bill or any document which must contain the residence address. The maximum size for an image is 4MB.  |
-| document_id_no | Optional | Optional | The valid ID number of your document which may be your passport no, ID card no, driving licence ID, etc. If the ID no. of document is required to verify, then send the document ID in this parameter. |
-| document_expiry_date | Optional | Optional | The expiry date  of customer`s document. Example: 1980-01-31 |
 
-# Card Present Verification
-Card present verification is used to verify whether your customer owns the debit/credit card. Your customer needs to display their credit/debit card. Shufti Pro will confirm the first 6-digits and the last 4-digits of the credit/debit card which will be on display.
-<br>
-**Endpoint:**  	POST https://api.shuftipro.com/ <br>
-**Format:**	    x-www-form-urlencoded
-
-| Parameter | Online | Offline | Description |
-| ------ | ------ | ------ | ------ |
-| method | Optional | Required | Which type of verification would you like for your   customers? <br> Possible   values: <br> <ul><li> passport </li><li> driving_license </li><li> id_card</li></ul> In real time verification if an empty value is provided then the end user will have an option to choose any of the verification method from the list given. |
-| client_id | Required | Required | Client’s ID  provided by Shufti Pro to you. |
-| reference | Required | Required | Your  Unique reference ID, which we will send you back with each response , so you can verify the request. Only alfa and num values are allowed. |
-| card_first_6_digits | Required | Required | First 6 digits of the customer’s credit/debit card number. The maximum and the minimum length required is 6 digits. |
-| card_last_4_digits | Required | Required | Last  4  digits  of  the customer’s credit/debit card number. The maximum and the minimum length required is 4 digits. |
-| country | Required | Required | Full Country name or ISO2 Code. Example: United Kingdom or GB. |
-| phone_number | Required | Required | Customer’s phone number with country code. Example: +440000000000 |
-| callback_url | Required | Optional | Upon every request, we make a server to server call, it includes all the response values, so you   can  update status on your end even if the customer is lost in the midway through the process. Please verify the response’s signature value  with your own calculated signature value. |
-| redirect_url | Required | Required | Once the verification process is completed, we will redirect the customer back to your given  URL. In this redirect request, you’ll also get all the response values in HTTP POST, so you can make your decision.Please verify the response’s signature value with your own calculated signature value. |
-| signature | Required | Required | SHA256 hash of all the request parameters in sorted order. The details are in the signature calculation section. |
-| face_image | Optional | Required | The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images). In this case , user must provide the next parameter i.e document_image. (max size 4MB) |
-| document_image | Optional | Required | The base 64 string of the document mentioned  in “method” parameter (passport, driving_license, id_card). This parameter is used for offline verification (still image verification). (max size 4MB) |
-| video | Optional | Required | The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video). (max size 8MB) |
-| email | Optional | Optional | The customer email. This parameter is to use if the verification result is pending or late then upon verification process completion; an email will be send to customer to notify his/her verification status. The verification result will be send to customer only if you provide the email. |
-| lang | Optional | Optional | Send ISO639-1 language code of your preferred language to display the verification screens accordingly. Please see the supported languages in this section. If this parameter is not sent then by default English as language will be displayed. |
 
 #  Get Request status
 To get the request status later after verification you may use this endpoint. To get the request status you are required to send the client_id, reference and signature in POST request. The reference is your unique request **reference** which you send at the time of request. Calculate the signature as described in signature calculation section. If all the validation passed and your request is found in our record then you will get back the verification status of request which is associated with the reference you are providing. <br>
@@ -172,6 +136,7 @@ Status codes represent the status of the verification process (Success / Failure
 | SP27 | Request is already processed | Yes | Yes |
 | SP29 | Invalid size. The size limit for ["parameter_name"] is ["size in MBs"] | Yes | Yes |
 | SP32 | Invalid request reference. Request not found | Yes | Yes |
+| SP35 | [parameter_name] not allowed with [method_name] verification method | Yes | Yes |
 
 # Signature Calculation
 The request and response signature can be calculated as following: 
@@ -237,16 +202,16 @@ Below are the sample codes in php, python & c# for the following verification me
 Shufti Pro provides the users with a number of test documents. Customers may use these to test the demo, instead of presenting their actual information. <br><br>
 
 Verification Result: “Verified” - Reason: Face Verified. <br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realFace.jpg)]() <br>
+[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realFace.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realFace.jpg) <br>
 
 Verification Result: “Not Verified“ - Reason: Face not Verified. <br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeFace.jpg)]() <br>
+[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeFace.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeFace.jpg) <br>
 
 Verification Result: “Verified” - Reason: Information correctly detected | Name/DoB/Card Number matched. <br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realId.jpg)]() <br>
+[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realId.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realId.jpg) <br>
 
 Verification Result: “Not Verified” - Reason: Incorrect information detected | Name/DoB/Card Number not matched.<br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeId.jpg)]() <br>
+[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeId.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeId.jpg) <br>
 
 
 
