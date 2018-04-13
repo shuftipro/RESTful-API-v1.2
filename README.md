@@ -109,7 +109,7 @@ The Shufti Pro API will send you two types of responses. First is the HTTP respo
 | reference | Your unique request reference which was provided at the time of request so that you can identify the response in relation to request made. |
 | signature | The **SHA256** hash of all response parameters. The process of signature calculation is given in the response signature calculation section. |
 
-> **Note:** Callback response will be sent on the callback_url provided in the request **provided** the provided callback URL is a valid URL.
+> **Note:** Callback response will be sent on the callback_url provided in the request **callback_url** parameter.
 
 # Status Codes
 Status codes represent the status of the verification process (Success / Failure). The Shufti Pro Verification API uses the following status codes sent throughout when making any kind of verification request.
