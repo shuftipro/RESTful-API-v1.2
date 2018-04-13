@@ -80,51 +80,8 @@ You can make a request at the following endpoint with all the parameters defined
 | lang | Optional | Optional | Send ISO639-1 language code of your preferred language to display the verification screens accordingly. Please see the supported languages in this section. If this parameter is not sent then by default English as language will be displayed. |
 | callback_url | Required | Optional | Upon every request, we make a server to server call, it includes all the response values, so you   can  update status on your end even if the customer is lost in the midway through the process. Please verify the response’s signature value  with your own calculated signature value.<br> **Remember:** It is not required if the user provides face_image, document_image or video. |
 | redirect_url | Required | Required | Once the verification process is completed, we will redirect the customer  back  to your  given  URL.  In this  redirect request, you’ll also get all the response   values   in HTTP POST, so you can make your decision. Please verify the response’s signature value with your own calculated signature value. |
-| verifcation_services | Required | Required | The JSON encoded array of all data which is required to verify. The all data to verify will be send in this parameter. The key will be name of service which you want to verify e.g dob, first_name etc. <table>
-  <tr>
-   	<td rowspan="2">Verification_services</td>
-    <td>document_type</td>
-    <td>document_id_no</td>
-    <td>document_expiry_date</td>
-    <td>address</td>
-    <td>first_name</td>
-    <td>last_name</td>
-    <td>dob</td>
-    <td>card_first_6_digits</td>
-    <td>card_last_4_digits</td>
-    <td>background_checks</td>
-  </tr>
-  <tr>
-    <td>Which type of verification would you like for your   customers? <br> Possible   values: <br> <ul><li> passport </li><li> driving_license </li><li> id_card</li></ul> In real time verification if an empty value is provided then the end user will have an option to choose any of the verification method from the list given</td>
-    <td>The valid ID number of your document</td>
-    <td>The expiry date  of customer's document. Example: 2025-01-31</td>
-    <td>customer's address on the document or utility bill</td>
-    <td>Customer’s First Name on the document</td>
-    <td>Customer’s Last Name. on the document</td>
-    <td>Customer’s date of birth (YYYY-MM-DD). Example: 1980-01-31</td>
-    <td>First 6 digits of the customer’s credit/debit card number if document type is debit/credit</td>
-    <td>Last 4 digits of the customer’s credit/debit card number if document type is debit/credit</td>
-    <td>Send 1 or 0 (Boolean) value. If you want to check the background details of the customer send this key with value 1</td>
-  </tr>
-</table> |
-| verification_data | Optional  | Required | <table>
-  <tr>
-   	<td rowspan="2">verification_data</td>
-    <td>face_image</td>
-    <td>document_front_image</td>
-    <td>document_back_image</td>
-    <td>document_address_image</td>
-    <td>video</td>
-    
-  </tr>
-  <tr>
-    <td>The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images) (Max size 4MB allowed)</td>
-    <td>The base 64 string of the document mentioned  in “document_type” parameter (passport, driving_license, id_card) (Max size 4MB allowed)</td>
-    <td>The base64 string of the customer’s document back side image.(if any) (Max size 4MB allowed)</td>
-    <td>he base64 string of the customer's utility bill or any document which must contain the residence address. If you want to verify the address then please send this image too. (Max size 4MB allowed)</td>
-    <td>The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video) (Max size 8MB allowed)</td>
-  </tr>
-</table> |
+| verifcation_services | Required | Required | The JSON encoded array of all data which is required to verify. The all data to verify will be send in this parameter. The key will be name of service which you want to verify e.g dob, first_name etc.<table><tr><td rowspan="2">Verification_services</td><td>document_type</td><td>document_id_no</td><td>document_expiry_date</td><td>address</td><td>first_name</td> <td>last_name</td> <td>dob</td><td>card_first_6_digits</td><td>card_last_4_digits</td><td>background_checks</td> </tr><tr><td>Which type of verification would you like for your   customers? <br> Possible   values: <br> <ul><li> passport </li><li> driving_license </li><li> id_card</li></ul> In real time verification if an empty value is provided then the end user will have an option to choose any of the verification method from the list given</td><td>The valid ID number of your document</td><td>The expiry date  of customer's document. Example: 2025-01-31</td><td>customer's address on the document or utility bill</td><td>Customer’s First Name on the document</td><td>Customer’s Last Name. on the document</td><td>Customer’s date of birth (YYYY-MM-DD). Example: 1980-01-31</td><td>First 6 digits of the customer’s credit/debit card number if document type is debit/credit</td><td>Last 4 digits of the customer’s credit/debit card number if document type is debit/credit</td><td>Send 1 or 0 (Boolean) value. If you want to check the background details of the customer send this key with value 1</td> </tr></table> |
+| verification_data | Optional  | Required | <table><tr><td rowspan="2">verification_data</td><td>face_image</td><td>document_front_image</td><td>document_back_image</td><td>document_address_image</td><td>video</td> </tr><tr><td>The base 64 string of the face. If the user wants to verify themselves through offline   verification (still images) (Max size 4MB allowed)</td><td>The base 64 string of the document mentioned  in “document_type” parameter (passport, driving_license, id_card) (Max size 4MB allowed)</td><td>The base64 string of the customer’s document back side image.(if any) (Max size 4MB allowed)</td><td>he base64 string of the customer's utility bill or any document which must contain the residence address. If you want to verify the address then please send this image too. (Max size 4MB allowed)</td><td>The  base  64  of the video is only required when the user wants to verify him/herself through offline verification (by sending video) (Max size 8MB allowed)</td></tr></table> |
 | signature | Required | Required | SHA256 hash of all the request parameters in sorted order. The details are in the signature calculation section. |
 
 
