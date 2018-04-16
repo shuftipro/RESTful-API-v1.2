@@ -37,10 +37,10 @@ post_data = {
 "email"                 : "customer email",
 "phone_number"          : "+440000000000",
 "country"               : "Pakistan",
-"lang"                  : "2 digits code of supported languages for intarface language"
+"lang"                  : "2 digits code of supported languages for intarface language",
 "callback_url"          : "A valid callback url e.g https://www.yourdomain.com", 
 "redirect_url"          : "A valid callback url e.g https://www.yourdomain.com",
-"verification_services" : json_verification_services 
+"verification_services" : json_verification_services,
 "verification_data"     : json_verification_data  
 }
 
@@ -51,4 +51,4 @@ hash_object = hashlib.sha256(raw_data) #calculating sha 256 hash signature = has
 post_data['signature'] = signature #append signature to data dictionary response = requests.post(url, post_data).json() #send POST request to API
 
 if response['status_code'] == "SP2":
-print response['message']   #now you can redirect your customer to this url
+  print response['message']   #now you can redirect your customer to this url
