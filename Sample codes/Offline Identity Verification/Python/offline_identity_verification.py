@@ -44,11 +44,14 @@ post_data = {
 "verification_data"     : json_verification_data  
 }
 
-post_data = collections.OrderedDict(sorted(post_data.items())) #sort the dictionary raw_data = "".join(post_data.values()) + SECRET_KEY #get values from dictionary and append secret key
+post_data = collections.OrderedDict(sorted(post_data.items())) #sort the dictionary 
+raw_data = "".join(post_data.values()) + SECRET_KEY #get values from dictionary and append secret key
 
-hash_object = hashlib.sha256(raw_data) #calculating sha 256 hash signature = hash_object.hexdigest()
+hash_object = hashlib.sha256(raw_data) #calculating sha 256 hash 
+signature = hash_object.hexdigest()
 
-post_data['signature'] = signature #append signature to data dictionary response = requests.post(url, post_data).json() #send POST request to API
+post_data['signature'] = signature #append signature to data dictionary 
+response = requests.post(url, post_data).json() #send POST request to API
 
 if response['status_code'] == "SP2":
   print response['message']   #now you can redirect your customer to this url
