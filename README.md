@@ -203,17 +203,13 @@ Below are the sample codes in php, python & c# for the following verification me
 # Test IDs
 Shufti Pro provides the users with a number of test documents. Customers may use these to test the demo, instead of presenting their actual information. <br><br>
 
-Verification Result: “Verified” - Reason: Face Verified. <br>
+Verification Result: “Verified” - Reason: Face Verified. <br> <br>
 [![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realFace.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realFace.jpg) <br>
 
-Verification Result: “Not Verified“ - Reason: Face not Verified. <br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeFace.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeFace.jpg) <br>
 
-Verification Result: “Verified” - Reason: Information correctly detected | Name/DoB/Card Number matched. <br>
+Verification Result: “Verified” - Reason: Information correctly detected | Name/DoB/Card Number matched. <br> <br>
 [![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realId.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/realId.jpg) <br>
 
-Verification Result: “Not Verified” - Reason: Incorrect information detected | Name/DoB/Card Number not matched.<br>
-[![](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeId.jpg)](https://raw.githubusercontent.com/shuftipro/integration-guide/master/assets/fakeId.jpg) <br>
 
 
 
@@ -228,10 +224,3 @@ Verification Result: “Not Verified” - Reason: Incorrect information detected
 
 
 2016-18 © Shufti Pro Ltd.
-
-
-
-
-
-
-
