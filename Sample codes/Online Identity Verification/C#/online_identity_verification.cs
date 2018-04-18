@@ -2,16 +2,28 @@ using (var client = new WebClient())
 {
 	var postData = new NameValueCollection();
 
-	postData["method"]              = "id_card";
-	postData["client_id"]           = "YOUR ID";	
-	postData["first_name"] 	   = "Test First Name";
-	postData["last_name"]           = "Test Last Name";
-	postData["dob"]          	   = "1990-01-01";
-	postData["country"]             = "Sweden";
-	postData["phone_number"]        = "+133458901";
-	postData["reference"]           = "rf01-124750";
-	postData["redirect_url"]        = "https://url.com/1fjmza31";
-	postData["callback_url"]        = "https://url.com/1fjmza31";
+	postData["client_id"]     = "YOUR CLIENT ID PROVIDED BY SHUFTIPRO";
+	postData["reference"]     = "Your unique request reference";
+	postData["email"]         = "customer email";
+	postData["phone_number"]  = "+440000000000";
+	postData["country"]       = "Pakistan";
+	postData["lang"]		  = "2 digits code of supported languages for intarface language";]
+	postData["callback_url"]  = "A valid callback url e.g https://www.yourdomain.com";
+	postData["redirect_url"]  = "A valid callback url e.g https://www.yourdomain.com";
+
+	var sericesData = new NameValueCollection();	
+		sericesData["document_type"]        = "passport";
+		sericesData["document_id_no"]       = "123-ABC-001";
+		sericesData["document_expiry_date"] = "2025-01-01";
+		sericesData["address"]              = "your address";
+		sericesData["first_name"]           = "Nawaz";
+		sericesData["last_name"]            = "Sharif";
+		sericesData["dob"]                  = "1949-12-25";
+		sericesData["background_checks"]    = "0";
+
+	var jsonServicesData = JsonConvert.SerializeObject(sericesData);
+
+	postData["verfication_services"]    = jsonServicesData;	
 
 	string rawData="";
 		//Sort the All request data to calculate signature
@@ -35,18 +47,18 @@ using (var client = new WebClient())
 		//dynamic stuff = JObject.Parse(responseString);
 		//string URL = stuff.message;
 
-	}
+}
 
-	public static string GetHashSha256(string strData)
+public static string GetHashSha256(string strData)
+{
+	var message = Encoding.ASCII.GetBytes(strData);
+	SHA256Managed hashString = new SHA256Managed();
+	string hex    = "";
+	var hashValue = hashString.ComputeHash(message);
+	
+	foreach (byte x in hashValue)
 	{
-		var message = Encoding.ASCII.GetBytes(strData);
-		SHA256Managed hashString = new SHA256Managed();
-		string hex = "";
-		var hashValue = hashString.ComputeHash(message);
-		
-		foreach (byte x in hashValue)
-		{
-			hex += String.Format("{0:x2}", x);
-		}
-		return hex;
+		hex += String.Format("{0:x2}", x);
 	}
+	return hex;
+}
