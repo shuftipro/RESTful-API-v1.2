@@ -1,7 +1,8 @@
-import hashlib 
-import requests 
+import hashlib
+import requests
 import json
 import collections
+import random
 from decimal import Decimal
 
 url = 'https://api.shuftipro.com/'
@@ -10,10 +11,7 @@ SECRET_KEY = 'YOUR_SECRET_KEY'
 
 
 verification_services ={}
-verification_services["document_type"]        = "passport OR id_card OR driving_license OR null"
-verification_services["document_id_no"]       = "123-ABC-001"
-verification_services["document_expiry_date"] = "2025-01-01"
-verification_services["address"]              = "your address"
+verification_services["document_type"]        = "credit_card"
 verification_services["card_first_6_digits"]  = "123456"
 verification_services["card_last_4_digits"]   = "7890"
 verification_services["background_checks"]    = "0"
@@ -24,21 +22,36 @@ json_verification_services = json.dumps(verification_services, ensure_ascii=Fals
 
 post_data = {
 "client_id"             : CLIENT_ID,
-"reference"             : "Your unique request reference",
-"email"                 : "customer email",
+"reference"             : "ref" + str(random.randint(1000,100000)),
+"email"                 : "customer@email.com",
 "phone_number"          : "+440000000000",
-"country"               : "Pakistan",
-"lang"                  : "2 digits code of supported languages for intarface language"
-"callback_url"          : "A valid callback url e.g https://www.yourdomain.com", 
-"redirect_url"          : "A valid callback url e.g https://www.yourdomain.com",
-"verification_services" : json_verification_services  
+"country"               : "gb",
+"lang"                  : "en",
+"callback_url"          : "https://www.yourdomain.com",
+"redirect_url"          : "https://www.yourdomain.com",
+"verification_services" : json_verification_services
 }
 
-post_data = collections.OrderedDict(sorted(post_data.items())) #sort the dictionary raw_data = "".join(post_data.values()) + SECRET_KEY #get values from dictionary and append secret key
+post_data = collections.OrderedDict(sorted(post_data.items())) #sort the dictionary
+raw_data = "".join(post_data.values()) + SECRET_KEY #get values from dictionary and append secret key
 
-hash_object = hashlib.sha256(raw_data) #calculating sha 256 hash signature = hash_object.hexdigest()
+hash_object = hashlib.sha256(raw_data) #calculating sha 256 hash
+signature = hash_object.hexdigest()
 
-post_data['signature'] = signature #append signature to data dictionary response = requests.post(url, post_data).json() #send POST request to API
+post_data['signature'] = signature #append signature to data dictionary
 
-if response['status_code'] == "SP2":
-print response['message']   #now you can redirect your customer to this url
+
+#send POST request to API
+response = requests.post(url, post_data).json()
+
+#Validate response signature
+my_signature = hashlib.sha256(response["status_code"] + response["message"]  +response["reference"] + SECRET_KEY).hexdigest()
+
+if my_signature == response["signature"]:
+    # Response is valid. Now you can redirect your customer if you receive status code SP2
+    if response["status_code"] == "SP2":
+        print "Redirect to: " + response["message"];
+    else:
+        print response["message"];
+else:
+    print "Response signature is invalid";
