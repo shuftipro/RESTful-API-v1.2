@@ -2,28 +2,30 @@ using (var client = new WebClient())
 {
 	var postData = new NameValueCollection();
 
-	postData["client_id"]     = "YOUR CLIENT ID PROVIDED BY SHUFTIPRO";
-	postData["reference"]     = "Your unique request reference";
+	postData["client_id"]     = "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3";
+	postData["reference"]     = "Unique request reference";
 	postData["email"]         = "customer email";
 	postData["phone_number"]  = "+440000000000";
-	postData["country"]       = "Pakistan";
-	postData["lang"]		  = "2 digits code of supported languages for intarface language";]
-	postData["callback_url"]  = "A valid callback url e.g https://www.yourdomain.com";
-	postData["redirect_url"]  = "A valid callback url e.g https://www.yourdomain.com";
+	postData["country"]       = "US";
+	postData["lang"]		  = "en";
+	postData["callback_url"]  = "https://www.yourdomain.com";
+	postData["redirect_url"]  = "https://www.yourdomain.com";
 
-	var sericesData = new NameValueCollection();	
-		sericesData["document_type"]        = "passport";
-		sericesData["document_id_no"]       = "123-ABC-001";
-		sericesData["document_expiry_date"] = "2025-01-01";
-		sericesData["address"]              = "your address";
-		sericesData["first_name"]           = "Nawaz";
-		sericesData["last_name"]            = "Sharif";
-		sericesData["dob"]                  = "1949-12-25";
-		sericesData["background_checks"]    = "0";
+	var sericesData = new 
+	{	
+		document_type        = "passport",
+		document_id_no       = "123-ABC-001",
+		document_expiry_date = "2025-01-01",
+		address              = "your address",
+		first_name           = "John",
+		last_name            = "Doe",
+		dob                  = "1949-12-25",
+		background_checks    = "0",
+	};
 
 	var jsonServicesData = JsonConvert.SerializeObject(sericesData);
 
-	postData["verfication_services"]    = jsonServicesData;	
+	postData["verification_services"]    = jsonServicesData;	
 
 	string rawData="";
 		//Sort the All request data to calculate signature
@@ -42,6 +44,8 @@ using (var client = new WebClient())
 		var response = client.UploadValues("https://api.shuftipro.com", postData);
 		var responseString = Encoding.Default.GetString(response);
 
+			
+		Console.WriteLine(responseString);
 		//print your response here
 		//If want to parse the JSON response uncomment the below lines
 		//dynamic stuff = JObject.Parse(responseString);
