@@ -2,7 +2,7 @@ using (var client = new WebClient())
 {
 	var postData = new NameValueCollection();
 
-	postData["client_id"]     = "2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fdefb64a3";
+	postData["client_id"]     = "Your client id provided by shuftipro";
 	postData["reference"]     = "Unique request reference";
 	postData["email"]         = "customer email";
 	postData["phone_number"]  = "+440000000000";
