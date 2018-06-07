@@ -1,6 +1,5 @@
 using (var client = new WebClient())
 {
-	
 			
 	var ApiURL    = "https://api.shuftipro.com/";
 	var ClientId  = "Client Id provided by Shuftipro";
@@ -29,7 +28,6 @@ using (var client = new WebClient())
 			
 	//Sample Images get and convert to Base64
 	
-
 
 	var VerficationData = new 
 	{   
@@ -72,16 +70,17 @@ using (var client = new WebClient())
 	var Response = client.UploadValues(ApiURL, PostData);
 	var ResponseString = Encoding.Default.GetString(Response);
 	
-	Console.WriteLine(ResponseString);
-	
-	
-	//print your response here
-	//If want to parse the JSON response uncomment the below lines
-	
-	//dynamic stuff = JObject.Parse(ResponseString);
-	//Console.WriteLine(stuff.message);
-
+	dynamic stuff = JObject.Parse(ResponseString);
+	var ConcatenatedData = (string) stuff.status_code + stuff.message + stuff.reference + SecretKey;
+	var MySignature = GetHashSha256(ConcatenatedData);
+	if(MySignature == (string)stuff.signature){
+		//Response is valid.
+		//Get message key value as (string)stuff.message
 	}
+	else{
+		//Response signature is invalid
+	}
+
 }
 	
 private static string GetHashSha256(string strData)
