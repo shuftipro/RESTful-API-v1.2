@@ -139,10 +139,14 @@ Status codes represent the status of the verification process (Success / Failure
 | SP27 | Request is already processed. | Yes | Yes |
 | SP29 | Invalid size. The size limit for ["parameter_name"] is ["size in MBs"]. | Yes | Yes |
 | SP30 | A particular verification service is not enabled. Please contact to the support. | Yes | Yes |
+| SP31 | User closed his/her web browser. | Yes | Yes |
 | SP32 | Invalid request reference. Request not found. | Yes | Yes |
 | SP33 | Verification review pending. | Yes | Yes |
 | SP34 | Language (provided in the request) is not supported. | Yes | Yes |
 | SP35 | [parameter_name] not allowed with [method_name] verification method. | Yes | Yes |
+| SP150 | User clicked on verification cancel button | No | Yes |
+| SP151 | User disagreed from terms & condition | No | Yes |
+| SP153 | Your account doesn't have enough credits to perform this verification | Yes | Yes |
 
 # Signature Calculation
 The request and response signature can be calculated as following: 
@@ -209,9 +213,10 @@ Shufti Pro provides the users with a number of test documents. Customers may use
 | Date | Version | Description |
 | ------ | ------ | ------ |
 | March 14, 2018 | 1.0.1 | Added new endpoint for get request status. https://api.shuftipro.com/status |
-| March 26, 2018 | 1.0.1 | Added lang parameter & supported languages list. |
-| March 29, 2018 | 1.0.1 | Added C# sample codes. |
-| April 10, 2018 | 1.0.1 | Added new supported languages. |
+| March 26, 2018 | 1.0.2 | Added lang parameter & supported languages list. |
+| March 29, 2018 | 1.0.3 | Added C# sample codes. |
+| April 10, 2018 | 1.0.4 | Added new supported languages. |
+| July 10, 2018 | 1.0.5 | Added new status codes. |
 
 
 
