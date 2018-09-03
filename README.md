@@ -1,4 +1,7 @@
 [![](https://raw.githubusercontent.com/shuftipro/ShuftiProSDK/master/shufti_pro_sdk.png)](https://www.shuftipro.com/)
+
+Note: **This version i.e. v1.2 is deprecated and support for this version will end on November 31st, 2018**
+
 # Table of contents
 * [Introduction](#introduction)
   * [Real-Time Verification](#real-time-verification)
@@ -23,6 +26,9 @@
 
 
 # Introduction
+
+Note: **This version i.e. v1.2 is deprecated and support for this version will end on November 31st, 2018**
+
 Shufti Pro provides two modes of verification:
 1. **Real-Time Verification**
 2.	**Offline Verification**
