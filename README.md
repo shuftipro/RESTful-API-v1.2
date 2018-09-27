@@ -1,4 +1,4 @@
-[![](https://raw.githubusercontent.com/shuftipro/ShuftiProSDK/master/shufti_pro_sdk.png)](https://www.shuftipro.com/)
+[![](https://raw.githubusercontent.com/shuftipro/RESTful-API-v1.2/master/assets/banner.jpg)](https://www.shuftipro.com/)
 
 Note: **This version i.e. v1.2 is deprecated and support for this version will end on November 31st, 2018**
 
